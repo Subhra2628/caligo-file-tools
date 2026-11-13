@@ -3,7 +3,7 @@ import { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
-import Navbar from "./navbar";
+import Navbar from "./Navbar.jsx";
 import Footer from "./Footer";
 
 // Scroll to top whenever the route changes.
