@@ -1,0 +1,111 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource/merriweather';
+@import 'tailwindcss';
+
+/* 1. YOUR DESIGN TOKENS */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Merriweather', ui-serif, Georgia, serif;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 12px 32px rgb(15 23 42 / 0.1);
+  --shadow-document: 0 0 15px rgba(0, 0, 0, 0.08), 0 25px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. BASE STYLES & PDF PRINT RULES */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-900 antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+
+  .document-text,
+  .export-canvas-mode {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+
+  /* --- CRITICAL PDF LAYOUT RULES --- */
+  @media print {
+    @page {
+      size: A4;
+      margin: 0mm;
+      /* Removes the default "Page 1" and URLs from browser */
+    }
+
+    body {
+      padding: 20mm !important;
+      /* Adds safe spacing so text doesn't touch edges */
+      background-color: white !important;
+      color: black !important;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    /* Prevents text/images from splitting in half across pages */
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    img,
+    table,
+    li,
+    pre,
+    blockquote {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    p {
+      orphans: 3 !important;
+      widows: 3 !important;
+    }
+
+    .page-break {
+      page-break-before: always !important;
+      break-before: page !important;
+    }
+  }
+}
+
+/* 3. YOUR UI UTILITIES */
+@utility btn {
+  @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-primary {
+  @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700;
+}
+
+@utility input {
+  @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
+}
+
+/* The A4 Document Web Preview */
+@utility document-preview {
+  @apply mx-auto w-full max-w-[794px] min-h-[1123px] bg-white px-12 py-16 text-left shadow-document;
+}
+.docx-page-break {
+  break-before: page;
+  page-break-before: always;
+}

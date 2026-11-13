@@ -1,0 +1,141 @@
+@layer components {
+
+  /*
+    1. CONVERTER HERO (3D Graphic)
+    Cleaned up nesting. Kept the exact 3D transforms but moved layout
+    properties to Tailwind utilities.
+  */
+  .hero-graphic {
+    @apply relative flex w-full justify-center;
+
+    .layer-base,
+    .layer-framework,
+    .layer-vite {
+      @apply inset-x-0 mx-auto;
+    }
+
+    .layer-base {
+      @apply relative z-0 w-[170px];
+    }
+
+    .layer-framework {
+      @apply absolute top-[34px] z-10 h-[28px];
+      transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg) scale(1.4);
+    }
+
+    .layer-vite {
+      @apply absolute top-[107px] z-0 h-[26px] w-auto;
+      transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg) scale(0.8);
+    }
+  }
+
+  /*
+    2. LAYOUT & SECTIONS
+    Replaced IDs with classes (best practice for React/Vue components).
+    Replaced manual @media (max-width: 1024px) with Tailwind's `max-lg:` modifier.
+  */
+  .layout-center {
+    @apply flex grow flex-col place-content-center place-items-center gap-[25px] max-lg:gap-[18px] max-lg:px-5 max-lg:pb-6 max-lg:pt-8;
+  }
+
+  .next-steps-grid {
+    @apply flex w-full border-t border-slate-200 text-left max-lg:flex-col max-lg:text-center;
+
+    >div {
+      @apply flex-1 p-8 max-lg:px-5 max-lg:py-6;
+    }
+
+    .icon-header {
+      @apply mb-4 size-[22px] max-lg:mx-auto;
+    }
+  }
+
+  .step-docs {
+    @apply border-r border-slate-200 max-lg:border-b max-lg:border-r-0;
+  }
+
+  .spacer-block {
+    @apply h-[88px] border-t border-slate-200 max-lg:h-[48px];
+  }
+
+  /*
+    3. DECORATIVE TICKS
+    Simplified using @apply for the pseudo-elements.
+  */
+  .divider-ticks {
+    @apply relative w-full;
+
+    &::before,
+    &::after {
+      content: '';
+      @apply absolute top-[-4.5px] border-[5px] border-transparent;
+    }
+
+    &::before {
+      @apply left-0 border-l-slate-200;
+    }
+
+    &::after {
+      @apply right-0 border-r-slate-200;
+    }
+  }
+}
+
+/*
+  4. REUSABLE UTILITIES
+*/
+@utility counter-badge {
+  /* Replaced custom vars with theme colors for consistency */
+  @apply mb-6 inline-flex rounded-md border-2 border-transparent bg-brand-50 px-2.5 py-1 text-base text-brand-600 transition-colors;
+
+  &:hover {
+    @apply border-brand-200;
+  }
+
+  &:focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+@utility action-list {
+  @apply m-0 mt-8 flex list-none flex-wrap gap-2 p-0 max-lg:mt-5 max-lg:justify-center;
+
+  li {
+    @apply max-lg:flex-[1_1_calc(50%-8px)];
+  }
+
+  a {
+    @apply flex items-center gap-2 rounded-md bg-slate-100 px-3 py-1.5 text-base text-slate-700 text-decoration-none transition-shadow hover:shadow-soft max-lg:w-full max-lg:justify-center max-lg:box-border;
+  }
+
+  .logo-icon,
+  .button-icon {
+    @apply h-[18px] w-auto;
+  }
+}
+
+/*
+  5. HTML-TO-PDF EXPORT OPTIMIZATIONS
+  Perfected for libraries like html2canvas / jspdf.
+*/
+@layer utilities {
+
+  .export-canvas-mode,
+  .export-canvas-mode * {
+    /* Forcing high-contrast, simple rendering for canvas generation */
+    color: #000000 !important;
+    background-color: transparent;
+    border-color: #cccccc !important;
+    outline-color: #cccccc !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+
+    /* Disable transitions to prevent canvas capturing mid-animation */
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .export-canvas-mode {
+    background-color: #ffffff !important;
+  }
+}
