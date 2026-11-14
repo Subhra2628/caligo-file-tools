@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   ShieldCheck,
   WifiOff,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react'
 import ToolCard from '../components/ToolCard'
 import { TOOLS } from '../utils/tools'
+import { scheduleCommonToolPreloads } from '../utils/preloadTools'
 
 const privacyPoints = [
   {
@@ -58,6 +60,8 @@ const steps = [
 const trustChips = ['Free to use', 'No sign-up', 'Files never uploaded']
 
 export default function Home() {
+  useEffect(() => scheduleCommonToolPreloads(), [])
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 via-indigo-50/40 to-white font-sans text-slate-900">
       {/* ───────────── Hero ───────────── */}
