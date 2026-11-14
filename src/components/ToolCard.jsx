@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { preloadTool } from '../utils/preloadTools'
 
 export default function ToolCard({ tool }) {
   const Icon = tool.icon
@@ -7,6 +8,9 @@ export default function ToolCard({ tool }) {
   return (
     <Link
       to={tool.path}
+      onMouseEnter={() => preloadTool(tool.path)}
+      onFocus={() => preloadTool(tool.path)}
+      onPointerDown={() => preloadTool(tool.path)}
       className="card group flex flex-col transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift"
     >
       <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${tool.iconBg} ${tool.iconColor}`}>
