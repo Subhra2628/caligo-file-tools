@@ -247,9 +247,6 @@ export default function Navbar() {
                       onMouseEnter={() => preloadTool(tool.path)}
                       onFocus={() => preloadTool(tool.path)}
                       onPointerDown={() => preloadTool(tool.path)}
-                onMouseEnter={() => preloadTool(tool.path)}
-                onFocus={() => preloadTool(tool.path)}
-                onPointerDown={() => preloadTool(tool.path)}
                       onClick={() => setOpen(false)}
                       className={({ isActive }) =>
                         `group flex min-w-0 items-center gap-3 rounded-2xl border p-3 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
